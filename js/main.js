@@ -1,7 +1,7 @@
 //LIMITATIONS: Only HSL (no rgb)
 //preserve drawingbuffer must be on! (static painting at end)
 
-var camera, renderer, scene, controls, clock, perlin, wineglass;
+var camera, renderer, scene, controls, clock, perlin, wineglass, brushtray;
 
 var line;
 var randFloat = THREE.Math.randFloat;
@@ -42,8 +42,12 @@ function init() {
   renderer.setSize(w, h);
   renderer.setClearColor(0x1b032c)
   document.body.appendChild(renderer.domElement);
+
+  brushTray = new BrushTray();
+
   wineglass = new WineGlass();
-  wineglass.paint();
+  wineglass.paintGlass();
+  wineglass.paintWine();
 }
 
 
@@ -59,9 +63,9 @@ function map(value, min1, max1, min2, max2) {
 };
 
 function onWindowResize() {
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
+  // renderer.setSize(window.innerWidth, window.innerHeight);
+  // camera.aspect = window.innerWidth / window.innerHeight;
+  // camera.updateProjectionMatrix();
 }
 
 
