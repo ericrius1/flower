@@ -15,11 +15,12 @@ var WineGlass = function(){
   var glassBrush = brushTray.glassBrushes[0];
   var wineBrush = brushTray.wineBrushes[0];
 
+  //Every time we change X function we have to change y!!
   var glassFuncX = function(x){
-    return Math.pow(x,2)/20 - 40;
+    return Math.pow(x,2)/30 - 40;
   }
   var glassFuncY = function(y){
-  	return Math.sqrt((20*(y+40)));
+  	return Math.sqrt((30*(y+40)));
   }
   createGlass();
 
@@ -41,6 +42,7 @@ var WineGlass = function(){
       var point;
       for(y = topGlass; y > bottomGlass; y-=1){
         rightSide = glassFuncY(y);
+        console.log(rightSide)
         leftSide = -rightSide;
         for(var x = leftSide; x < rightSide; x+=1){
           point = new THREE.Vector3(x, y, 0);
@@ -79,14 +81,17 @@ var WineGlass = function(){
 
     }
     var strokeTween = new TWEEN.Tween(csd).
-      to(fsd, 20).
+      to(fsd, 5).
       onUpdate(function(){
-        glassBrush.position.set(csd.x, csd.y, 0);
+        glassBrush.position.set(csd.x, csd.y, 5);
       }).start();
       strokeTween.onComplete(function(){
         vertexIndex+=2;
         if(vertexIndex < glassGeo.vertices.length){
           self.paintGlass();
+        }
+        else{
+          self.paintWine();
         }
       });    
   }
@@ -110,7 +115,7 @@ function wineStroke(){
       size: wineBrush.scale.x * 1.5
     }
     var strokeTween = new TWEEN.Tween(curStrokeData).
-      to(finalStrokeData, 1).
+      to(finalStrokeData, 10).
       easing(TWEEN.Easing.Quadratic.InOut).
       onUpdate(function(){
         wineBrush.position.set(curStrokeData.x, curStrokeData.y, 0);

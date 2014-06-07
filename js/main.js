@@ -47,7 +47,6 @@ function init() {
 
   wineglass = new WineGlass();
   wineglass.paintGlass();
-  wineglass.paintWine();
 }
 
 
