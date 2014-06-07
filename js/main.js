@@ -72,12 +72,12 @@ function createWineGlass(){
   var startingX = -25;
   var endingX = 25;
   var middleX = (endingX + startingX)/2;
-  var func = function(x){
+  wineglass.func = function(x){
     return Math.pow(x,2)/20 - 40;
   }
   for(var x = startingX; x < endingX; x+=.1){
     //We need to save bottom of the glass
-    y = func(x);
+    y = wineglass.func(x);
     if( Math.floor(x) === middleX){
       wineglass.bottom = y;
     }
