@@ -42,34 +42,16 @@ function init() {
   renderer.setSize(w, h);
   renderer.setClearColor(0x1b032c)
   document.body.appendChild(renderer.domElement);
-  var color = new THREE.Color().setHSL(335/360, .89, .62)
-  var sphereMat = new THREE.MeshBasicMaterial({color:color})
-  sphere = new THREE.Mesh(new THREE.SphereGeometry(.1), sphereMat);
-  sphere.position.x = -5
   wineglass = new WineGlass();
-  scene.add(sphere);
-
-
-
-
 }
 
 
 function animate() {
-  stroke();
+  wineglass.paint();
   renderer.render(scene, camera);
   requestAnimationFrame(animate);
 }
 
-
-//start stoking from the bottom of the glass
-//work way upwards to top. 
-//pick random angle to stroke at.
-//at every point, check to make sure we're not out of bounds (x = sqrt(y))
-function stroke(){
-  //
-
-}
 
 function map(value, min1, max1, min2, max2) {
   return min2 + (max2 - min2) * ((value - min1) / (max1 - min1));
