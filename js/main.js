@@ -43,11 +43,12 @@ function init() {
   renderer.setClearColor(0x1b032c)
   document.body.appendChild(renderer.domElement);
   wineglass = new WineGlass();
+  wineglass.paint();
 }
 
 
 function animate() {
-  wineglass.paint();
+  TWEEN.update();
   renderer.render(scene, camera);
   requestAnimationFrame(animate);
 }
