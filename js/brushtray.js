@@ -7,11 +7,12 @@ var  BrushTray = function(){
 
 
   function createGlassBrush(){
-    var color = new THREE.Color().setHSL(120/360, .89, .32) 
-    var brushGeo = new THREE.SphereGeometry(.1);
+    var color = new THREE.Color().setHSL(252/360, .05, .45) 
+    var brushGeo = new THREE.SphereGeometry(1);
     var brushMat = new THREE.MeshBasicMaterial({color: color, transparent: true, opacity: 0.1});
     var glassBrush= new THREE.Mesh(brushGeo, brushMat);
     glassBrushes.push(glassBrush);
+    glassBrush.visible = false;
     scene.add(glassBrush);
 
   }
@@ -22,6 +23,7 @@ var  BrushTray = function(){
     var brushMat = new THREE.MeshBasicMaterial({color: color, transparent: true, opacity: 0.1});
     var wineBrush= new THREE.Mesh(brushGeo, brushMat);
     wineBrushes.push(wineBrush);
+    wineBrush.visible = false;
     scene.add(wineBrush);
   }
 
