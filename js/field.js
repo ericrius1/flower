@@ -1,9 +1,9 @@
 var Field = function(startingLight, endingLight){
 
   var currentY = bottomScreen - 5;
-  var bushBrush =brushFactory.createBushBrush();
-  bushBrush.material.color = _.sample(bushBrush.colors);
-  bushBrush.position.x = -1000;
+  var vineBrush =brushFactory.createVineBrush();
+  vineBrush.material.color = _.sample(vineBrush.colors);
+  vineBrush.position.x = -1000;
   var brushScaleFactor = 0.90
 
   var stakeBrush = brushFactory.createStakeBrush();
@@ -13,6 +13,8 @@ var Field = function(startingLight, endingLight){
   var waveFactor = 10
   var yIncrement = 7;
   var tweenTime = 1000;
+  var vinePositions = [];
+  var grapes = new Grapes();
 
 
   function firstLayer(){
@@ -42,14 +44,14 @@ var Field = function(startingLight, endingLight){
       }).start()
     strokeTween.onComplete(function(){
       scene.remove(layerBrush);
-      bushBrush.visible = true;
+      vineBrush.visible = true;
       stakeBrush.visible = true;
       stroke();
     })
   }
 
   function stroke(){
-    // bushBrush.material.color.offsetHSL(0, 0, .02);
+    // vineBrush.material.color.offsetHSL(0, 0, .02);
     var csd = {
       x: leftScreen-5
     };
@@ -61,9 +63,10 @@ var Field = function(startingLight, endingLight){
       to(fsd, tweenTime).
       onUpdate(function(){
         var yPos = -Math.sin(csd.x /60) * waveFactor + currentY;
-        var xPos = csd.x+randFloat(-.1, .1);
-        bushBrush.position.set(xPos, yPos, 0);
+        var xPos = csd.x;
+        vineBrush.position.set(xPos, yPos, 0);
         stakeBrush.position.set(xPos, yPos, 0);
+        vinePositions.push(xPos, yPos);
       }).start();
       
       strokeTween.onComplete(function(){
@@ -71,9 +74,13 @@ var Field = function(startingLight, endingLight){
           yIncrement *= brushScaleFactor; 
           tweenTime *= 1.1;
           currentY += yIncrement;
-          bushBrush.scale.multiplyScalar(brushScaleFactor)
+          vineBrush.scale.multiplyScalar(brushScaleFactor)
           stakeBrush.scale.multiplyScalar(brushScaleFactor)
           stroke();
+        }
+        else{
+        	grapes.paint();
+
         }
       });
   }
