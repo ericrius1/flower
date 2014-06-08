@@ -5,17 +5,27 @@ var  BrushFactory = function(){
   var skyBrushes = [];
 
   this.createLandscapeBrush = function(){
-    var color1 = new THREE.Color(0x646b1e);
-    var color2 = new THREE.Color(0x8f8b41);
-    var brushGeo = new THREE.CircleGeometry(3, 20);
-    var brushMat = new THREE.MeshBasicMaterial({color: color1, transparent: true, opacity: 0.2});
+    var brushGeo = new THREE.CircleGeometry(2, 6);
+    var brushMat = new THREE.MeshBasicMaterial({ transparent: true, opacity: 0.2});
     var landscapeBrush= new THREE.Mesh(brushGeo, brushMat);
-    landscapeBrush.colors = [color1, color2];
+    landscapeBrush.scale.x = 0.5
+    landscapeBrush.colors = [
+      new THREE.Color(0x51601b)
+    ];
     landscapeBrushes.push(landscapeBrush);
     landscapeBrush.position.x = leftScreen;
     landscapeBrush.visible = false;
     scene.add(landscapeBrush);
     return landscapeBrush;
+  }
+
+  this.createGrapeBush = function(){
+    var brushGeo = new THREE.CircleGeometry(.1, 20);
+    var brushMat = new THREE.MeshBasicMaterial();
+    var grapeBrush = new THREE.Mesh(brushGeo, brushMat);
+    grapeBush.visible = false;
+    scene.add(grapeBush);
+    return grapeBush;
   }
 
   this.createLayerBrush = function(color, size){
