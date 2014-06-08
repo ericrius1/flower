@@ -1,30 +1,32 @@
 var Landscape = function(){
-	var brush = brushFactory.createLandscapeBrush();
-  var csd, fsd;
-  var currentX = leftScreen;
-  setTimeout(function(){
-    brush.visible = true;
-    stroke();
 
-  }, 1000)
+  currentY = 0;
+  setTimeout(function(){
+    stroke();
+  }, 100)
 
   function stroke(){
-    csd = {
-      y: bottomScreen
+    var brush =brushFactory.createLandscapeBrush();
+    brush.visible = true
+    var csd = {
+      x: leftScreen
     };
-    fsd = {
-      y: topScreen
+    var fsd = {
+      x: rightScreen
     };
     var strokeTween = new TWEEN.Tween(csd).
-      to(fsd, 500).
+      to(fsd, 2000).
       onUpdate(function(){
         brush.material.color = _.sample(brush.colors);
-        brush.position.set(currentX, csd.y, 0)
+        var y = Math.sin(csd.x/10)* 2 + currentY
+        brush.position.set(csd.x, y, 0)
       }).start();
       
       strokeTween.onComplete(function(){
-        currentX+=5
-        stroke();
+        currentY -= 5;
+        if(currentY > bottomScreen){
+          stroke();
+        }
       });
   }
 }
