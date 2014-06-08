@@ -13,7 +13,9 @@ var Field = function(startingLight, endingLight){
   var waveFactor = 10
   var yIncrement = 7;
   var tweenTime = 1000;
-  var grapes = new Grapes();
+
+  var count = 0;
+
 
 
   function firstLayer(){
@@ -50,6 +52,8 @@ var Field = function(startingLight, endingLight){
   }
 
   function stroke(){
+  	var color = count % 2 === 0 ? new THREE.Color('red') : new THREE.Color('blue');
+  	count++
     // vineBrush.material.color.offsetHSL(0, 0, .02);
     var csd = {
       x: leftScreen-5
@@ -70,6 +74,7 @@ var Field = function(startingLight, endingLight){
       }).start();
       
       strokeTween.onComplete(function(){
+  	    var grapes = new Grapes(color, vineData);
         grapes.paintRow(vineData, vineBrush.scale.length());
         if(currentY < skyHeight - 15){
           yIncrement *= brushScaleFactor; 
