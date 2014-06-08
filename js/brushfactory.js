@@ -5,7 +5,7 @@ var  BrushFactory = function(){
   var skyBrushes = [];
 
   this.createBushBrush = function(){
-    var brushGeo = new THREE.CircleGeometry(2, 6);
+    var brushGeo = new THREE.CircleGeometry(3, 6);
     var brushMat = new THREE.MeshBasicMaterial({ transparent: true, opacity: 0.3});
     var landscapeBrush= new THREE.Mesh(brushGeo, brushMat);
     landscapeBrush.scale.x = 0.5
@@ -20,7 +20,7 @@ var  BrushFactory = function(){
   }
 
   this.createStakeBrush = function(){
-    var brushGeo = new THREE.CircleGeometry(1, 20);
+    var brushGeo = new THREE.CircleGeometry(1.5, 20);
     var brushMat = new THREE.MeshBasicMaterial({color: new THREE.Color(0x692f1d), transparent: true, opacity: 0.4});
     var stakeBrush = new THREE.Mesh(brushGeo, brushMat);
     stakeBrush.scale.x = .1;

@@ -1,29 +1,30 @@
 var Field = function(startingLight, endingLight){
 
-  var currentY = bottomScreen+ 20;
+  var currentY = bottomScreen - 5;
   var bushBrush =brushFactory.createBushBrush();
   bushBrush.material.color = _.sample(bushBrush.colors);
   bushBrush.position.x = -1000;
+  var brushScaleFactor = 0.90
 
   var stakeBrush = brushFactory.createStakeBrush();
   stakeBrush.position.x = -1000;
 
   firstLayer();
-  var waveFactor = randFloat(2, 5);
-  var yIncrement = 5;
+  var waveFactor = 10
+  var yIncrement = 7;
   var tweenTime = 1000;
 
 
   function firstLayer(){
   	// var bAdd = .001
-  	var rAdd = 0.005
-  	var gSub = 0.001
+  	var rAdd = randFloat(0.002, 0.007);
+  	var gSub = randFloat(0.001, 0.003);
     var color = new THREE.Color(0x80b428);
     var radius = 31;
     var layerBrush = brushFactory.createLayerBrush(color, radius);
     layerBrush.position.y = -20
     var csd = {
-      x: leftScreen-10
+      x: leftScreen
     }
     var fsd = {
       x: rightScreen
@@ -59,18 +60,19 @@ var Field = function(startingLight, endingLight){
     var strokeTween = new TWEEN.Tween(csd).
       to(fsd, tweenTime).
       onUpdate(function(){
-        var yPos = Math.sin(csd.x /40) * waveFactor + currentY;
-        bushBrush.position.set(csd.x, yPos, 0);
-        stakeBrush.position.set(csd.x, yPos, 0);
+        var yPos = -Math.sin(csd.x /60) * waveFactor + currentY;
+        var xPos = csd.x+randFloat(-.1, .1);
+        bushBrush.position.set(xPos, yPos, 0);
+        stakeBrush.position.set(xPos, yPos, 0);
       }).start();
       
       strokeTween.onComplete(function(){
-        if(currentY < skyHeight - 10){
-          yIncrement *= 0.9; 
+        if(currentY < skyHeight - 15){
+          yIncrement *= brushScaleFactor; 
           tweenTime *= 1.1;
           currentY += yIncrement;
-          bushBrush.scale.multiplyScalar(0.9)
-          stakeBrush.scale.multiplyScalar(0.9)
+          bushBrush.scale.multiplyScalar(brushScaleFactor)
+          stakeBrush.scale.multiplyScalar(brushScaleFactor)
           stroke();
         }
       });
