@@ -1,12 +1,14 @@
 //LIMITATIONS: Only HSL (no rgb)
 //preserve drawingbuffer must be on! (static painting at end)
 
-var camera, renderer, scene, controls, clock, perlin, wineglass, brushtray, landscape;
+var camera, renderer, scene, controls, clock, perlin, wineglass, brushtray, landscape, sky;
 
 var line;
 var randFloat = THREE.Math.randFloat;
 
 var sphere;
+var skyHeight = 10
+var baseLayerTime = 2000;
 
 window.addEventListener('resize', onWindowResize);
 
@@ -46,11 +48,12 @@ function init() {
 
   brushFactory = new BrushFactory();
 
-  landscape = new Landscape();
+  //To avoid jerkiness
+  setTimeout(function(){
+    landscape = new Landscape();
+    sky = new Sky();
+  }, 500);
 
-  // glass = new Glass();
-  // wineglass = new WineGlass();
-  // wineglass.paintGlass();
 }
 
 
