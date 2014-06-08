@@ -1,7 +1,7 @@
 //LIMITATIONS: Only HSL (no rgb)
 //preserve drawingbuffer must be on! (static painting at end)
 
-var camera, renderer, scene, controls, clock, perlin, wineglass, brushtray;
+var camera, renderer, scene, controls, clock, perlin, wineglass, brushtray, landscape;
 
 var line;
 var randFloat = THREE.Math.randFloat;
@@ -37,7 +37,8 @@ function init() {
 
   scene = new THREE.Scene();
 
-  renderer = new THREE.WebGLRenderer({preserveDrawingBuffer: true});
+  // renderer = new THREE.WebGLRenderer({preserveDrawingBuffer: true});
+  renderer = new THREE.WebGLRenderer({preserveDrawingBuffer: false});
   renderer.autoClearColor = false;
   renderer.setSize(w, h);
   renderer.setClearColor(0x1b032c)
@@ -45,13 +46,16 @@ function init() {
 
   brushTray = new BrushTray();
 
-  wineglass = new WineGlass();
-  wineglass.paintGlass();
+  landscape = new Landscape();
+
+  // wineglass = new WineGlass();
+  // wineglass.paintGlass();
 }
 
 
 function animate() {
   TWEEN.update();
+  landscape.update();
   renderer.render(scene, camera);
   requestAnimationFrame(animate);
 }
