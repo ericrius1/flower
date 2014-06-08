@@ -24,13 +24,16 @@ var  BrushFactory = function(){
   }
 
   this.createLandscapeBrush = function(){
-    var color = new THREE.Color(0x646b1e);
+    var color1 = new THREE.Color(0x646b1e);
+    var color2 = new THREE.Color(0x8f8b41);
     var brushGeo = new THREE.SphereGeometry(5);
-    var brushMat = new THREE.MeshBasicMaterial({color: color, transparent: true, opacity: 0.5});
+    var brushMat = new THREE.MeshBasicMaterial({color: color1, transparent: true, opacity: 0.5});
     var landscapeBrush= new THREE.Mesh(brushGeo, brushMat);
+    landscapeBrush.colors = [color1, color2];
     landscapeBrushes.push(landscapeBrush);
+    landscapeBrush.position.x = leftScreen;
     scene.add(landscapeBrush);
-    landscapeBrush.visible = false;
+    // landscapeBrush.visible = false;.
     return landscapeBrush;
   }
 

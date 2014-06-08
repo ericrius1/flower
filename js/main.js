@@ -10,8 +10,11 @@ var sphere;
 
 window.addEventListener('resize', onWindowResize);
 
-var leftScreen = -90;
-var rightScreen = 90;
+var w = window.innerWidth;
+var h = window.innerHeight;
+var leftScreen = -w/16;
+var rightScreen = w/16;
+console.log(window.innerWidth)
 var topScreen = 50;
 var bottomScreen = -50;
 
@@ -26,8 +29,6 @@ animate();
 
 function init() {
   clock = new THREE.Clock();
-  var w = window.innerWidth;
-  var h = window.innerHeight;
 
   perlin = new ImprovedNoise();
 

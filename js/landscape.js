@@ -5,7 +5,7 @@ var Landscape = function(){
   setTimeout(function(){
     brush.visible = true;
     stroke();
-    
+
   }, 1000)
 
   function stroke(){
@@ -16,16 +16,15 @@ var Landscape = function(){
       y: topScreen
     };
     var strokeTween = new TWEEN.Tween(csd).
-      to(fsd, 1000).
+      to(fsd, 3000).
       onUpdate(function(){
+        brush.material.color = _.sample(brush.colors);
         brush.position.set(currentX, csd.y, 0)
       }).start();
       
       strokeTween.onComplete(function(){
-        currentX+=10;
-        if(currentX < rightScreen){
-          stroke();
-        }
+        currentX+=1
+        stroke();
       });
   }
 }
