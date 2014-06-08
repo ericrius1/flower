@@ -70,6 +70,7 @@ var Field = function(startingLight, endingLight){
       }).start();
       
       strokeTween.onComplete(function(){
+        grapes.paintRow(vineData, vineBrush.scale.length());
         if(currentY < skyHeight - 15){
           yIncrement *= brushScaleFactor; 
           tweenTime *= 1.1;
@@ -77,7 +78,6 @@ var Field = function(startingLight, endingLight){
           vineBrush.scale.multiplyScalar(brushScaleFactor)
           stakeBrush.scale.multiplyScalar(brushScaleFactor)
           stroke();
-          grapes.paintRow(vineData, vineBrush.scale.length());
         }
       });
   }

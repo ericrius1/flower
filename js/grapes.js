@@ -1,22 +1,24 @@
 var Grapes = function(){
-	
-	var vineData;
-	var brush = brushFactory.createGrapeBrush();
 	//a bunch of grapes 
+  var self = this;
 	this.paintRow = function(vineDataz){
-		vineData = vineDataz;
-		populateVine();
-	}
-	var populateVine = function(){
-	    var brush = brushFactory.createGrapeBrush();
-		var vine = _.sample(vineData);
-		console.log(vineData.length)
+    var id =0;
+    self.vineData = vineDataz
+    var brush = brushFactory.createGrapeBrush();
+    brush.visible = true;
+		brush.id = id++
+    console.log("BRUSH ID",brush.id);
+		self.populateVine(brush);	
+  }
+  this.populateVine = function(brush){
+    var vine = _.sample(self.vineData);
 		brush.position.set(vine.x, vine.y, 0);
-        brush.visible = true;
-		vineData.splice(vineData.indexOf(vine), 1)
-		if(vineData.length > 0){
-			populateVine();
-		}
-
+		self.vineData.splice(self.vineData.indexOf(vine), 1)
+		setTimeout(function(){
+			if(self.vineData.length > 0){
+				console.log('BRUSH ID', brush.id)
+				self.populateVine(brush);
+			}	
+		}, 100)
 	}
 }
