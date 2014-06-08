@@ -73,8 +73,7 @@ var Field = function(startingLight, endingLight){
       }).start();
       
       strokeTween.onComplete(function(){
-  	    var grapes = new Grapes(color, vineData, grapeScale);
-        grapes.paintRow(vineData, vineBrush.scale.length());
+  	    // var grapes = new Grapes(vineData, grapeScale);
   	    grapeScale *= brushScaleFactor
         if(currentY < skyHeight - 15){
           yIncrement *= brushScaleFactor; 

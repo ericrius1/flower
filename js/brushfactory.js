@@ -31,8 +31,8 @@ var  BrushFactory = function(){
   }
 
   this.createGrapeBrush = function(){
-    var brushGeo = new THREE.CircleGeometry(.3, 20);
-    var brushMat = new THREE.MeshBasicMaterial();
+    var brushGeo = new THREE.CircleGeometry(.05, 20);
+    var brushMat = new THREE.MeshBasicMaterial({transparent: true, opacity: 0.5});
     var grapeBrush = new THREE.Mesh(brushGeo, brushMat);
     grapeBrush.visible = false;
     scene.add(grapeBrush);
