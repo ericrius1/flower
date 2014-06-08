@@ -1,25 +1,39 @@
-var Sky = function(){
+var Sky = function(startingLight, endingLight){
   var strokeRange = 15;
   var skyBaseColor = new THREE.Color(0x01837f);
   var brush = brushFactory.createSkyBrush();
   brush.position.x = -1000
 
+
+
   firstLayer();
 
   function firstLayer(){
+    //decide how much r and g to decrease by in total
+    var rAdd = randFloat(0, 0.007);
+    var gSub = randFloat(0, 0.004);
     var radius = 20;
+    var hsl;
     var layerBrush = brushFactory.createLayerBrush(skyBaseColor, radius);
     layerBrush.position.y = (topScreen-skyHeight)/2 + radius/2;
     var csd = {
-      x: leftScreen-10
+      x: leftScreen-10,
+      light: layerBrush.material.color.getHSL().l
     };
     var fsd = {
-      x: rightScreen
+      x: rightScreen,
+      r: csd.r + randFloat(0.2, 0.4),
+      light: endingLight
     }
     var strokeTween = new TWEEN.Tween(csd).
       to(fsd, baseLayerTime).
       onUpdate(function(){
-        layerBrush.material.color.offsetHSL(-.001, -.001, -0.0015);
+        var hsl = layerBrush.material.color.getHSL()
+        layerBrush.material.color.setHSL(hsl.h, hsl.s, csd.light);
+        layerBrush.material.color.r += rAdd;
+        layerBrush.material.color.g -= gSub;
+
+
         layerBrush.position.x = csd.x;
       }).start();
       strokeTween.onComplete(function(){

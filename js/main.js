@@ -8,7 +8,6 @@ var randFloat = THREE.Math.randFloat;
 
 var sphere;
 var skyHeight = 10
-var baseLayerTime = 2000;
 
 window.addEventListener('resize', onWindowResize);
 
@@ -51,8 +50,6 @@ function init() {
   //To avoid jerkiness
   setTimeout(function(){
     landscape = new Landscape();
-    sky = new Sky();
-    grapes = new Grapes();
   }, 500);
 
 }
