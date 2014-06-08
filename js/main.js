@@ -8,7 +8,7 @@ var randFloat = THREE.Math.randFloat;
 
 var sphere;
 var skyHeight = 10
-var baseLayerTime = 1000;
+var baseLayerTime = 2000;
 
 window.addEventListener('resize', onWindowResize);
 

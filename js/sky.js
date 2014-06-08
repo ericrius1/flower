@@ -19,7 +19,7 @@ var Sky = function(){
     var strokeTween = new TWEEN.Tween(csd).
       to(fsd, baseLayerTime).
       onUpdate(function(){
-        layerBrush.material.color.offsetHSL(0, 0, 0.0015);
+        layerBrush.material.color.offsetHSL(-.001, -.001, -0.0015);
         layerBrush.position.x = csd.x;
       }).start();
       strokeTween.onComplete(function(){

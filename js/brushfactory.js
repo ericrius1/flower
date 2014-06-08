@@ -4,9 +4,9 @@ var  BrushFactory = function(){
   var landscapeBrushes = [];
   var skyBrushes = [];
 
-  this.createLandscapeBrush = function(){
+  this.createBushBrush = function(){
     var brushGeo = new THREE.CircleGeometry(2, 6);
-    var brushMat = new THREE.MeshBasicMaterial({ transparent: true, opacity: 0.2});
+    var brushMat = new THREE.MeshBasicMaterial({ transparent: true, opacity: 0.3});
     var landscapeBrush= new THREE.Mesh(brushGeo, brushMat);
     landscapeBrush.scale.x = 0.5
     landscapeBrush.colors = [
@@ -17,6 +17,17 @@ var  BrushFactory = function(){
     landscapeBrush.visible = false;
     scene.add(landscapeBrush);
     return landscapeBrush;
+  }
+
+  this.createStakeBrush = function(){
+    var brushGeo = new THREE.CircleGeometry(1, 20);
+    var brushMat = new THREE.MeshBasicMaterial({color: new THREE.Color(0x692f1d), transparent: true, opacity: 0.4});
+    var stakeBrush = new THREE.Mesh(brushGeo, brushMat);
+    stakeBrush.scale.x = .1;
+    stakeBrush.scale.y =2.6
+    stakeBrush.visible = false;
+    scene.add(stakeBrush);
+    return stakeBrush;
   }
 
   this.createGrapeBush = function(){
