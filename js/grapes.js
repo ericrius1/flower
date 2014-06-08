@@ -1,8 +1,9 @@
-var Grapes = function(color, vineDataz){
+var Grapes = function(color, vineDataz, scale){
 	//a bunch of grapes 
   var vineData = vineDataz
   var brush = brushFactory.createGrapeBrush();
   brush.material.color = color;
+  brush.scale.set(scale, scale, scale);
   this.paintRow = function(){
     brush.visible = true;
 		populateVine();	
@@ -15,7 +16,7 @@ var Grapes = function(color, vineDataz){
   			if(vineData.length > 0){
   				populateVine(brush);
   			}	
-  		}, 500)
+  		}, 50)
   	}
   }
 }

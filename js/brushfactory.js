@@ -31,7 +31,7 @@ var  BrushFactory = function(){
   }
 
   this.createGrapeBrush = function(){
-    var brushGeo = new THREE.CircleGeometry(randFloat(0.3, 0.7), 20);
+    var brushGeo = new THREE.CircleGeometry(.3, 20);
     var brushMat = new THREE.MeshBasicMaterial();
     var grapeBrush = new THREE.Mesh(brushGeo, brushMat);
     grapeBrush.visible = false;

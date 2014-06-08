@@ -5,6 +5,7 @@ var Field = function(startingLight, endingLight){
   vineBrush.material.color = _.sample(vineBrush.colors);
   vineBrush.position.x = -1000;
   var brushScaleFactor = 0.90
+  var grapeScale = 1;
 
   var stakeBrush = brushFactory.createStakeBrush();
   stakeBrush.position.x = -1000;
@@ -15,8 +16,6 @@ var Field = function(startingLight, endingLight){
   var tweenTime = 1000;
 
   var count = 0;
-
-
 
   function firstLayer(){
   	// var bAdd = .001
@@ -74,8 +73,9 @@ var Field = function(startingLight, endingLight){
       }).start();
       
       strokeTween.onComplete(function(){
-  	    var grapes = new Grapes(color, vineData);
+  	    var grapes = new Grapes(color, vineData, grapeScale);
         grapes.paintRow(vineData, vineBrush.scale.length());
+  	    grapeScale *= brushScaleFactor
         if(currentY < skyHeight - 15){
           yIncrement *= brushScaleFactor; 
           tweenTime *= 1.1;
