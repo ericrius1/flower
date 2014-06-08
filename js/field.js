@@ -13,7 +13,6 @@ var Field = function(startingLight, endingLight){
   var waveFactor = 10
   var yIncrement = 7;
   var tweenTime = 1000;
-  var vinePositions = [];
   var grapes = new Grapes();
 
 
@@ -58,6 +57,7 @@ var Field = function(startingLight, endingLight){
     var fsd = {
       x: rightScreen + 5
     };
+    var vineData = [];
 
     var strokeTween = new TWEEN.Tween(csd).
       to(fsd, tweenTime).
@@ -66,7 +66,7 @@ var Field = function(startingLight, endingLight){
         var xPos = csd.x;
         vineBrush.position.set(xPos, yPos, 0);
         stakeBrush.position.set(xPos, yPos, 0);
-        vinePositions.push(xPos, yPos);
+        vineData.push({x: xPos, y: yPos});
       }).start();
       
       strokeTween.onComplete(function(){
@@ -77,10 +77,7 @@ var Field = function(startingLight, endingLight){
           vineBrush.scale.multiplyScalar(brushScaleFactor)
           stakeBrush.scale.multiplyScalar(brushScaleFactor)
           stroke();
-        }
-        else{
-        	grapes.paint();
-
+          grapes.paintRow(vineData, vineBrush.scale.length());
         }
       });
   }

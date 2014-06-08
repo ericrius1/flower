@@ -30,13 +30,14 @@ var  BrushFactory = function(){
     return stakeBrush;
   }
 
-  this.createGrapeBush = function(){
-    var brushGeo = new THREE.CircleGeometry(.1, 20);
-    var brushMat = new THREE.MeshBasicMaterial();
+  this.createGrapeBrush = function(){
+    var brushGeo = new THREE.CircleGeometry(1, 20);
+    var color = new THREE.Color('red')
+    var brushMat = new THREE.MeshBasicMaterial({color: color});
     var grapeBrush = new THREE.Mesh(brushGeo, brushMat);
-    grapeBush.visible = false;
-    scene.add(grapeBush);
-    return grapeBush;
+    grapeBrush.visible = false;
+    scene.add(grapeBrush);
+    return grapeBrush;
   }
 
   this.createLayerBrush = function(color, size){
