@@ -10,8 +10,8 @@ var sphere;
 
 window.addEventListener('resize', onWindowResize);
 
-var leftScreen = -45;
-var rightScreen = 45;
+var leftScreen = -90;
+var rightScreen = 90;
 var topScreen = 50;
 var bottomScreen = -50;
 
@@ -37,17 +37,17 @@ function init() {
 
   scene = new THREE.Scene();
 
-  // renderer = new THREE.WebGLRenderer({preserveDrawingBuffer: true});
-  renderer = new THREE.WebGLRenderer({preserveDrawingBuffer: false});
+  renderer = new THREE.WebGLRenderer({preserveDrawingBuffer: true});
+  // renderer = new THREE.WebGLRenderer({preserveDrawingBuffer: false});
   renderer.autoClearColor = false;
   renderer.setSize(w, h);
-  renderer.setClearColor(0x1b032c)
   document.body.appendChild(renderer.domElement);
 
-  brushTray = new BrushTray();
+  brushFactory = new BrushFactory();
 
   landscape = new Landscape();
 
+  // glass = new Glass();
   // wineglass = new WineGlass();
   // wineglass.paintGlass();
 }
@@ -55,7 +55,6 @@ function init() {
 
 function animate() {
   TWEEN.update();
-  landscape.update();
   renderer.render(scene, camera);
   requestAnimationFrame(animate);
 }

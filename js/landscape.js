@@ -1,14 +1,31 @@
 var Landscape = function(){
-	var texture = THREE.ImageUtils.loadTexture('assets/countrysidestyle.jpg');
-	var planeGeo = new THREE.PlaneGeometry(140, 80);
-	var planeMat = new THREE.MeshBasicMaterial({map: texture});
-	var plane = new THREE.Mesh(planeGeo, planeMat);
-	scene.add(plane)
-	
+	var brush = brushFactory.createLandscapeBrush();
+  var csd, fsd;
+  var currentX = leftScreen;
+  setTimeout(function(){
+    brush.visible = true;
+    stroke();
+    
+  }, 1000)
 
-
-	this.update = function(){
-		// renderer.render(imageScene, camera);
-	}
-
+  function stroke(){
+    csd = {
+      y: bottomScreen
+    };
+    fsd = {
+      y: topScreen
+    };
+    var strokeTween = new TWEEN.Tween(csd).
+      to(fsd, 1000).
+      onUpdate(function(){
+        brush.position.set(currentX, csd.y, 0)
+      }).start();
+      
+      strokeTween.onComplete(function(){
+        currentX+=10;
+        if(currentX < rightScreen){
+          stroke();
+        }
+      });
+  }
 }
