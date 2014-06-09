@@ -1,11 +1,12 @@
 var Pond = function(){
-  var brush = brushFactory.createPondBrush();
-  var radius = 7;
-  var circleCenter = new THREE.Vector3(rightScreen - radius -10, skyHeight - radius - 3 );
+  var brushRadius = .5;
+  var brush = brushFactory.createPondBrush(brushRadius);
+  var radius = 10
+  var circleCenter = new THREE.Vector3(rightScreen - radius -15, skyHeight - radius - 1 );
   var p1, p2;
   var numPoints = 100
   var thetaLength = Math.PI * 2;
-  var xScale = 1.5;
+  var xScale = 2.5;
   brush.position.x = radius * xScale + circleCenter.x;
   brush.position.y =  circleCenter.y;
   brush.visible = true; 
@@ -13,7 +14,6 @@ var Pond = function(){
   paintCircle();
 
   function paintCircle(){
-    brush.material.color.r = Math.random();
     var angle = currentPoint/numPoints * thetaLength; 
     var newX = radius * xScale * Math.cos(angle) + circleCenter.x;
     var newY = radius  * Math.sin(angle) + circleCenter.y;
@@ -27,19 +27,18 @@ var Pond = function(){
     }
 
     var strokeTween = new TWEEN.Tween(csd).
-      to(fsd, 10).
+      to(fsd, 20).
       onUpdate(function(){
         brush.position.set(csd.x, csd.y, 0);
       }).start();
 
       strokeTween.onComplete(function(){
         currentPoint++;
-        if(currentPoint <= numPoints){
-          paintCircle();
+        if(currentPoint > numPoints){
+          radius -= brushRadius;
+          currentPoint = 0;
         }
-        else{
-          radius -= 1;
-        }
+        paintCircle();
       });
   }
 }

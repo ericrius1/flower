@@ -19,8 +19,8 @@ var  BrushFactory = function(){
     return vineBrush;
   }
 
-  this.createPondBrush = function(){
-    var brushGeo = new THREE.CircleGeometry(1, 10);
+  this.createPondBrush = function(radius){
+    var brushGeo = new THREE.CircleGeometry(radius, 10);
     var brushMat = new THREE.MeshBasicMaterial({color: 0x0000ff});
     var pondBrush = new THREE.Mesh(brushGeo, brushMat);
     pondBrush.visible = true;
