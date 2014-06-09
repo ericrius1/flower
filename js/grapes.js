@@ -1,7 +1,6 @@
 var Grapes = function( vinePositions, scale, color){
 	//a bunch of grapes 
   populateVine(); 
-  console.log(scale)
   function populateVine(){
     var vinePosition = _.sample(vinePositions);
     vinePositions.splice(vinePositions.indexOf(vinePosition), 1)
@@ -50,7 +49,6 @@ function paintBushel(position, scale, color){
       // points.push(x, y);
 
   }
-  console.log(points.length)
 
   //just to let first stroke render in right spot
   setTimeout(function(){

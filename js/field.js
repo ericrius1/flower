@@ -43,8 +43,8 @@ var Field = function(startingLight, endingLight){
         hsl = layerBrush.material.color.getHSL();
         layerBrush.material.color.setHSL(hsl.h, hsl.s, light);
         // layerBrush.material.color.b += bAdd;
-        layerBrush.material.color.r += rAdd;
-         layerBrush.material.color.g += gSub;
+        layerBrush.material.color.r += rAdd + randFloat(-.001, .001);
+         layerBrush.material.color.g += gSub + randFloat(-.001, .001);
       }).start()
     strokeTween.onComplete(function(){
       scene.remove(layerBrush);
