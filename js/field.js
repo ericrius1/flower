@@ -15,6 +15,10 @@ var Field = function(startingLight, endingLight){
   var yIncrement = 7;
   var tweenTime = 1000;
 
+  var grapeColor = new THREE.Color().setRGB(randFloat(0.5, 0.9), randFloat(0.1, 0.3), randFloat(0.5, 0.9));
+  var hsl = grapeColor.getHSL();
+  grapeColor.offsetHSL(0, 0, randFloat(-.2, 0));
+
   var count = 0;
 
   function firstLayer(){
@@ -46,7 +50,6 @@ var Field = function(startingLight, endingLight){
       scene.remove(layerBrush);
       vineBrush.visible = true;
       stakeBrush.visible = true;
-      var grapeTest = new GrapeTest();
       stroke();
     })
   }
@@ -61,7 +64,7 @@ var Field = function(startingLight, endingLight){
     var fsd = {
       x: rightScreen + 5
     };
-    var vineData = [];
+    var vinePositions = [];
 
     var strokeTween = new TWEEN.Tween(csd).
       to(fsd, tweenTime).
@@ -70,11 +73,11 @@ var Field = function(startingLight, endingLight){
         var xPos = csd.x;
         vineBrush.position.set(xPos, yPos, 0);
         stakeBrush.position.set(xPos, yPos, 0);
-        vineData.push({x: xPos, y: yPos});
+        vinePositions.push(new THREE.Vector3(xPos, yPos, 0));
       }).start();
       
       strokeTween.onComplete(function(){
-  	    // var grapes = new Grapes(vineData, grapeScale);
+  	    var grapes = new Grapes(vinePositions, grapeScale, grapeColor);
   	    grapeScale *= brushScaleFactor
         if(currentY < skyHeight - 15){
           yIncrement *= brushScaleFactor; 
