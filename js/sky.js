@@ -3,6 +3,7 @@ var Sky = function(startingLight, endingLight){
   var skyBaseColor = new THREE.Color(0x01837f);
   var brush = brushFactory.createSkyBrush();
   brush.position.x = -1000
+  var colors = [];
 
 
 
@@ -22,7 +23,6 @@ var Sky = function(startingLight, endingLight){
     };
     var fsd = {
       x: rightScreen,
-      r: csd.r + randFloat(0.2, 0.4),
       light: endingLight
     }
     var strokeTween = new TWEEN.Tween(csd).
@@ -32,6 +32,7 @@ var Sky = function(startingLight, endingLight){
         layerBrush.material.color.setHSL(hsl.h, hsl.s, csd.light);
         layerBrush.material.color.r += rAdd;
         layerBrush.material.color.g -= gSub;
+        debugger;
 
 
         layerBrush.position.x = csd.x;
