@@ -46,6 +46,7 @@ var Field = function(startingLight, endingLight){
       scene.remove(layerBrush);
       vineBrush.visible = true;
       stakeBrush.visible = true;
+      var grapeTest = new GrapeTest();
       stroke();
     })
   }

@@ -1,7 +1,9 @@
 //LIMITATIONS: Only HSL (no rgb)
 //preserve drawingbuffer must be on! (static painting at end)
 
-var camera, renderer, scene, controls, clock, perlin, wineglass, brushtray, landscape, sky;
+//FIGURE OUT SCREENSPACE TO WORLD SPACE!!
+
+var camera, renderer, projector, scene, controls, clock, perlin, wineglass, brushtray, landscape, sky;
 
 var line;
 var randFloat = THREE.Math.randFloat;
@@ -35,15 +37,16 @@ function init() {
 
   camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 2000);
   camera.position.z = 120;
+  projector = new THREE.Projector();
 
 
   scene = new THREE.Scene();
 
   renderer = new THREE.WebGLRenderer({preserveDrawingBuffer: true});
-  // renderer = new THREE.WebGLRenderer({preserveDrawingBuffer: false});
   renderer.autoClearColor = false;
   renderer.setSize(w, h);
   document.body.appendChild(renderer.domElement);
+
 
   brushFactory = new BrushFactory();
 
