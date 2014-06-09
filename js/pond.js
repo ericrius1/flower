@@ -1,5 +1,5 @@
 var Pond = function(){
-	var brush = brushFactory.createPondBrush();
+  var brush = brushFactory.createPondBrush();
   var radius = 7;
   var circleCenter = new THREE.Vector3(rightScreen - radius -10, skyHeight - radius - 3 );
   var p1, p2;
@@ -30,13 +30,15 @@ var Pond = function(){
       to(fsd, 10).
       onUpdate(function(){
         brush.position.set(csd.x, csd.y, 0);
-        console.log('x', csd.x);
       }).start();
 
       strokeTween.onComplete(function(){
         currentPoint++;
         if(currentPoint <= numPoints){
           paintCircle();
+        }
+        else{
+          radius -= 1;
         }
       });
   }
