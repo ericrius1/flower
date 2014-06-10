@@ -11,29 +11,62 @@ var Village = function(endingLight){
   // scene.add(circle);
   var minX = -radius * scale + xOffset
   var maxX = radius * scale + xOffset
-  console.log("minx", minX)
-  console.log("maxX", maxX)
+  var minY = -radius
+  var maxY = radius;
   for(var i  = 0; i < points.length; i++){
   	var p = new THREE.Mesh(new THREE.CircleGeometry(1, 10));
     points[i].x = points[i].x * scale + xOffset;
   }
 
-
   //paint lots of house
   paintHouse();
+  paintChurch();
   // var circleCenter = new THREE.Vector3(rightScreen - radius -15, skyHeight - radius - 1 );
+
+  function paintChurch(){
+    var firstTime = true;
+    var brush = createHouseBrush(.05);
+    brush.position.set((minX+maxX)/2, skyHeight+.4,0);
+    brush.material.color.setHex(0x4e3620);
+    brush.visible = true;
+    brush.scale.x = 30
+    var csd = {
+      y: brush.position.y
+
+    }
+    var fsd = {
+      y: csd.y + 12
+    }
+    var roofPoint = (csd.y + fsd.y) * 0.57;
+
+    var strokeTween = new TWEEN.Tween(csd).
+      to(fsd, 5000).
+      easing(TWEEN.Easing.Quadratic.In).
+      onUpdate(function(){
+        brush.position.y = csd.y
+        brush.material.color.offsetHSL(0, 0, .0002);
+        console.log(csd.y)
+        if(csd.y > roofPoint){
+          if(firstTime){
+            brush.material.color.setHex(0x332a22);
+            firstTime = false;
+          }
+          console.log('yar!')
+          brush.scale.x -= 0.6;
+        }
+      }).start();
+  }
 
   function paintHouse(){
   	//pick a random point in the points array
   	var point = _.sample(points);
   	points.splice(points.indexOf(point), 1);
-  	var brush = createHouseBrush();
+    var brushRadius = map(point.y, minY, maxY, .1, .15);
+  	var brush = createHouseBrush(brushRadius);
   	brush.position.set(point.x, point.y, 0);
     brush.visible = true;
     var offsetHue = randFloat(-.005, 0);
-    console.log(endingLight)
     var offsetLight = map(point.x, minX, maxX, 0, -.02/endingLight);
-    console.log(offsetLight)
     brush.material.color.offsetHSL(0, 0, offsetLight);
 
   	var csd = {
@@ -63,16 +96,17 @@ var Village = function(endingLight){
       });
   }
 
-  function createHouseBrush(){
-    var brushGeo = new THREE.CircleGeometry(.1, 20);
+  function createHouseBrush(radius){
+    var brushGeo = new THREE.CircleGeometry(radius, 20);
     var color = new THREE.Color(0x704e0d);
     color.offsetHSL(randFloat(-.1, 0.01), randFloat(-.01, 0.01), 0);
 
-    var brushMat = new THREE.MeshBasicMaterial({color: color, transparent: true, opacity: 0.7});
+    var brushMat = new THREE.MeshBasicMaterial({color: color, transparent: true, opacity: 0.6});
     var brush = new THREE.Mesh(brushGeo, brushMat);
     brush.scale.x = 5.
     brush.visible = false;
     scene.add(brush);
     return brush;
   }
+
 }
