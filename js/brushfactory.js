@@ -20,15 +20,6 @@ var  BrushFactory = function(){
   }
 
 
-  this.createPondBrush = function(radius){
-    var brushGeo = new THREE.CircleGeometry(radius, 50);
-    var brushMat = new THREE.MeshBasicMaterial({color: 0x18167d});
-    var pondBrush = new THREE.Mesh(brushGeo, brushMat);
-    pondBrush.visible = true;
-    scene.add(pondBrush);
-    return pondBrush;
-  }
-
   this.createStakeBrush = function(){
     var brushGeo = new THREE.CircleGeometry(1.5, 20);
     var brushMat = new THREE.MeshBasicMaterial({color: new THREE.Color(0x692f1d), transparent: true, opacity: 0.4});
