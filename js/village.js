@@ -1,6 +1,6 @@
 var Village = function(endingLight){
   var endingLight = endingLight;
-  var radius = 7;
+  var radius = 9;
   var circleMat = new THREE.MeshBasicMaterial({color: 0xff00ff, transparent: true, opacity: 0.01});
   var circle = new THREE.Mesh(new THREE.CircleGeometry(radius, 20), circleMat);
   var xOffset = rightScreen - radius - 20;
@@ -61,7 +61,7 @@ var Village = function(endingLight){
   	//pick a random point in the points array
   	var point = _.sample(points);
   	points.splice(points.indexOf(point), 1);
-    var brushRadius = map(point.y, minY, maxY, .1, .15);
+    var brushRadius = map(point.y, minY, maxY, .01, .015);
   	var brush = createHouseBrush(brushRadius);
   	brush.position.set(point.x, point.y, 0);
     brush.visible = true;
@@ -78,14 +78,14 @@ var Village = function(endingLight){
 
     var roofStart = (csd.y + fsd.y)/2;
   	var strokeTween = new TWEEN.Tween(csd).
-  	  to(fsd, 500).
+  	  to(fsd, 2000).
   	  easing(TWEEN.Easing.Quadratic.In).
   	  onUpdate(function(){
   	  	brush.position.y = csd.y;
         //we're greater than halfway so make roof
         if(csd.y > roofStart){
           brush.material.color.offsetHSL(offsetHue, 0, 0)
-          brush.scale.x -= .2;
+          brush.scale.x -= 1;
         }
   	  }).start();
 
@@ -103,7 +103,7 @@ var Village = function(endingLight){
 
     var brushMat = new THREE.MeshBasicMaterial({color: color, transparent: true, opacity: 0.6});
     var brush = new THREE.Mesh(brushGeo, brushMat);
-    brush.scale.x = 5.
+    brush.scale.x = 50.
     brush.visible = false;
     scene.add(brush);
     return brush;
