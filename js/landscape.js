@@ -1,4 +1,5 @@
 var baseLayerTime = 2000;
+var skyHeight = 10
 
 var Landscape = function(){
   var startingLight = randFloat(.3, .5);
@@ -6,7 +7,7 @@ var Landscape = function(){
   var sky = new Sky(startingLight, endingLight);
   var field = new Field(startingLight, endingLight);
   setTimeout(function(){
-    var pond =new Pond();
+    var pond =new Pond(sky.colors);
   }, baseLayerTime);
  
 }

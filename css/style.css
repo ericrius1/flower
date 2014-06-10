@@ -1,4 +1,7 @@
-#toast{
+#dad{
 	position: absolute;
-	color: white;
+	color: black;
+	top: 50px;
+	font-size: 100px;
+	left: 300px;
 }

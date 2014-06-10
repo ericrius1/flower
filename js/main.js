@@ -9,7 +9,6 @@ var line;
 var randFloat = THREE.Math.randFloat;
 
 var sphere;
-var skyHeight = 10
 
 window.addEventListener('resize', onWindowResize);
 
@@ -26,8 +25,7 @@ var bottomScreen = -50;
 
 // var audio = loadAudio('audio/lights.mp3');
 // audio.play();
-init();
-animate();
+
 
 
 function init() {
@@ -48,12 +46,13 @@ function init() {
   document.body.appendChild(renderer.domElement);
 
 
-  brushFactory = new BrushFactory();
 
-  //To avoid jerkiness
-  setTimeout(function(){
-    landscape = new Landscape();
-  }, 500);
+}
+
+function start() {
+  brushFactory = new BrushFactory();
+  landscape = new Landscape();
+  animate();
 
 }
 

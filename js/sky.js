@@ -32,7 +32,7 @@ var Sky = function(startingLight, endingLight){
         layerBrush.material.color.setHSL(hsl.h, hsl.s, csd.light);
         layerBrush.material.color.r += rAdd;
         layerBrush.material.color.g -= gSub;
-        debugger;
+        colors.push(layerBrush.material.color.clone());
 
 
         layerBrush.position.x = csd.x;
@@ -67,4 +67,7 @@ var Sky = function(startingLight, endingLight){
     })
 
 	}
+
+  this.colors = colors;
+  
 }
