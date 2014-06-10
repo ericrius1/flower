@@ -3,12 +3,13 @@
 
 //FIGURE OUT SCREENSPACE TO WORLD SPACE!!
 
-var camera, renderer, projector, scene, controls, clock, perlin, wineglass, brushtray, landscape, sky;
+var camera, renderer, projector, scene, controls, clock, bell;
 
 
 var randFloat = THREE.Math.randFloat;
 
 window.addEventListener('resize', onWindowResize);
+window.addEventListener('mousedown', onMouseDown)
 
 var w = window.innerWidth;
 var h = window.innerHeight;
@@ -17,6 +18,7 @@ var rightScreen = w/16;
 console.log(window.innerWidth)
 var topScreen = 50;
 var bottomScreen = -50;
+var pause = false;
 
 
 // music.play();
@@ -38,15 +40,20 @@ function init() {
   scene = new THREE.Scene();
 
   renderer = new THREE.WebGLRenderer({preserveDrawingBuffer: true});
+  // renderer = new THREE.WebGLRenderer({preserveDrawingBuffer: false});
   renderer.autoClearColor = false;
   renderer.setSize(w, h);
   document.body.appendChild(renderer.domElement);
+
+  bell = new Bell();
 }
 
 
 function animate() {
-  TWEEN.update();
-  renderer.render(scene, camera);
+  if(!pause){
+    renderer.render(scene, camera);
+    bell.update();
+  }
   requestAnimationFrame(animate);
 }
 
@@ -66,4 +73,12 @@ function loadAudio(uri) {
   var audio = new Audio();
   audio.src = uri;
   return audio;
+}
+
+function onMouseDown(){
+  pause = !pause;
+}
+
+function randColor(){
+  return new THREE.Color().setRGB(Math.random(), Math.random(), Math.random());
 }
