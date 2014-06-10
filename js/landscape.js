@@ -6,5 +6,8 @@ var Landscape = function(){
   var endingLight = randFloat(0.1, 0.3)
   var sky = new Sky(startingLight, endingLight);
   var field = new Field(startingLight, endingLight);
+  setTimeout(function(){
+    var village = new Village();
+  },baseLayerTime);
  
 }
