@@ -1,6 +1,6 @@
 var Village = function(){
 
-  var radius = 10;
+  var radius = 9;
   var circleMat = new THREE.MeshBasicMaterial({color: 0xff00ff, transparent: true, opacity: 0.01});
   var circle = new THREE.Mesh(new THREE.CircleGeometry(radius, 20), circleMat);
   var xOffset = rightScreen - radius - 20;
@@ -8,7 +8,7 @@ var Village = function(){
   var scale = 2.5
   circle.scale.x = scale;
   var points = THREE.GeometryUtils.randomPointsInGeometry(circle.geometry, 20);
-  scene.add(circle);
+  // scene.add(circle);
 
   for(var i  = 0; i < points.length; i++){
   	var p = new THREE.Mesh(new THREE.CircleGeometry(1, 10));
@@ -32,7 +32,7 @@ var Village = function(){
   		y: brush.position.y,
   	}
   	var fsd = {
-  		y: csd.y + randFloat(1, 5),
+  		y: csd.y + randFloat(0.5, 1),
   	}
 
     var roofStart = (csd.y + fsd.y)/2;
@@ -41,7 +41,7 @@ var Village = function(){
   	  // easing(TWEEN.Easing.Cubic.In).
   	  onUpdate(function(){
   	  	brush.position.y = csd.y;
-        brush.material.color.offsetHSL(randFloat(-.001, .001), 0, .003)
+        brush.material.color.offsetHSL(randFloat(-.001, .001), 0, .001)
         //we're greater than halfway so make roof
         if(csd.y > roofStart){
           brush.scale.x -= .1;
@@ -56,11 +56,11 @@ var Village = function(){
   }
 
   function createHouseBrush(){
-    var brushGeo = new THREE.CircleGeometry(.1, 20);
+    var brushGeo = new THREE.CircleGeometry(.05, 20);
     var color = new THREE.Color(0x704e0d);
-    color.offsetHSL(randFloat(-.01, 0.01), randFloat(-.01, 0.01), randFloat(-0.01, 0.01));
+    color.offsetHSL(randFloat(-.01, 0.01), randFloat(-.01, 0.01), randFloat(0, 0.2));
 
-    var brushMat = new THREE.MeshBasicMaterial({color: color});
+    var brushMat = new THREE.MeshBasicMaterial({color: color, transparent: true, opacity: 0.7});
     var brush = new THREE.Mesh(brushGeo, brushMat);
     brush.scale.x = 5.
     brush.visible = false;
