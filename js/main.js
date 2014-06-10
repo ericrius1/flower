@@ -5,10 +5,8 @@
 
 var camera, renderer, projector, scene, controls, clock, perlin, wineglass, brushtray, landscape, sky;
 
-var line;
-var randFloat = THREE.Math.randFloat;
 
-var sphere;
+var randFloat = THREE.Math.randFloat;
 
 window.addEventListener('resize', onWindowResize);
 
@@ -26,8 +24,8 @@ var bottomScreen = -50;
 // var audio = loadAudio('audio/lights.mp3');
 // audio.play();
 
-
-
+init();
+animate();
 function init() {
   clock = new THREE.Clock();
 
@@ -37,23 +35,12 @@ function init() {
   camera.position.z = 120;
   projector = new THREE.Projector();
 
-
   scene = new THREE.Scene();
 
   renderer = new THREE.WebGLRenderer({preserveDrawingBuffer: true});
   renderer.autoClearColor = false;
   renderer.setSize(w, h);
   document.body.appendChild(renderer.domElement);
-
-
-
-}
-
-function start() {
-  brushFactory = new BrushFactory();
-  landscape = new Landscape();
-  animate();
-
 }
 
 
