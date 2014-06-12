@@ -3,19 +3,18 @@
 
 //FIGURE OUT SCREENSPACE TO WORLD SPACE!!
 
-var camera, renderer, projector, scene, controls, clock, bell;
+var camera, renderer, projector, scene, controls, clock, flower, bell;
 
 
 var randFloat = THREE.Math.randFloat;
 
 window.addEventListener('resize', onWindowResize);
-window.addEventListener('mousedown', onMouseDown)
+// window.addEventListener('mousedown', onMouseDown)
 
 var w = window.innerWidth;
 var h = window.innerHeight;
 var leftScreen = -w/16;
 var rightScreen = w/16;
-console.log(window.innerWidth)
 var topScreen = 50;
 var bottomScreen = -50;
 var pause = false;
@@ -45,14 +44,15 @@ function init() {
   renderer.setSize(w, h);
   document.body.appendChild(renderer.domElement);
 
-  bell = new Bell();
+  flower = new Flower();
+  // bell = new Bell();
 }
 
 
 function animate() {
   if(!pause){
     renderer.render(scene, camera);
-    bell.update();
+    flower.update();
   }
   requestAnimationFrame(animate);
 }
@@ -75,10 +75,24 @@ function loadAudio(uri) {
   return audio;
 }
 
-function onMouseDown(){
-  pause = !pause;
+function onMouseDown(event){
+  worldX = map(event.clientX, 0, w, leftScreen, rightScreen);
+  console.log(event.clientX, event.clientY);
+  worldY = map(event.clientY, 0, h, topScreen, bottomScreen);
+  console.log(worldY)
+  createPoint(new THREE.Vector3(worldX, worldY, 0));
+
 }
 
 function randColor(){
   return new THREE.Color().setRGB(Math.random(), Math.random(), Math.random());
 }
+
+function createPoint(position){
+  var pointGeo = new THREE.CircleGeometry(.5, 20);
+  var pointMat = new THREE.MeshBasicMaterial({color: new THREE.Color(0x0000ff)});
+  var point = new THREE.Mesh(pointGeo, pointMat);
+  point.position = position;
+  scene.add(point);
+}
+
