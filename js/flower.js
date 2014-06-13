@@ -3,18 +3,19 @@
 var Flower = function(){
   var texture;
   var emitters = [];
-  var originalEmitters = []''
+  var prevEmitter;
+  var originalEmitters = []
   if(Math.random() > 0.5){
     texture = THREE.ImageUtils.loadTexture('assets/star.png');
   }
   else{
     texture = THREE.ImageUtils.loadTexture('assets/point.png');
   }
-  var numEmitters = 20;
+  var numEmitters = 100;
   var currentEmitterIndex =0;
 	var particleGroup = new SPE.Group({
 		texture: texture,
-		maxAge: 4,
+		maxAge: 5,
     blending: THREE.NormalBlending
 	});
 
@@ -23,23 +24,22 @@ var Flower = function(){
     emitter.disable();
     particleGroup.addEmitter(emitter);
     emitters.push(emitter);
+    originalEmitters.push(emitter);
   }
   changeFlowers();
   function changeFlowers(){
-    for(var i  =0; i < emitters.length; i++){
-      if(i === currentEmitterIndex){
-        emitters[i].enable();
-        console.log('enable')
-      }
-      else{
-        emitters[i].disable()
-      }
-      
-    }
+    prevEmitter && prevEmitter.disable();
+    var emitter = _.sample(emitters);
+    emitter.enable();
+    emitters.splice(emitters.indexOf(emitter), 1);
+    prevEmitter = emitter;
+
     setTimeout(function(){
-      currentEmitterIndex++;
-      if(currentEmitterIndex === emitters.length){
-        currentEmitterIndex = 0;
+      if(emitters.length ===0){
+        //recopy emitters from original emitters
+        _.each(originalEmitters, function(originalEmitter){
+          emitters.push(originalEmitter)
+        });
       }
       changeFlowers();
     }, _.random(5000, 10000));
@@ -47,21 +47,24 @@ var Flower = function(){
     
 
   function createFlower(){
-    var range = 3;
+    var range = 4;
     var colorStart = new THREE.Color().setHSL(Math.random(), randFloat(0.5, 1.0), randFloat(0.4, 0.9) );
     var colorMiddle = new THREE.Color().setHSL(Math.random(), randFloat(0.5, 1.0), randFloat(0.4, 0.9));
     var colorEnd = new THREE.Color().setHSL(Math.random() , randFloat(0.5, 1.0), randFloat(0.4, 0.9) );
+    var spreadBase = randFloat(5, 10);
+    var velBase = randFloat(0, 4);
     return{
-      positionSpread: new THREE.Vector3(randFloat(0, 10), randFloat(0, 10), 0),
-      sizeStart: randFloat(1, 10),
-      sizeEnd:randFloat(1, 10),
-      acceleration: new THREE.Vector3(0, 0, range),
-      velocitySpread: new THREE.Vector3(randFloat(0, range), randFloat(0, range), 0),
-      accelerationSpread: new THREE.Vector3(randFloat(0,range), randFloat(0, range), randFloat(0, 1)),
+      positionSpread: new THREE.Vector3(spreadBase, spreadBase, 0),
+      sizeStart: randFloat(1, 5),
+      sizeEnd:randFloat(4, 6),
+      velocity: new THREE.Vector3(0, 0, -2),
+      acceleration: new THREE.Vector3(0, 0, 2),
+      velocitySpread: new THREE.Vector3(range,range, 0),
+      accelerationSpread: new THREE.Vector3(range * .7,range * .7, 0),
       colorStart: colorStart,
       colorMiddle: colorEnd,
       colorEnd: colorEnd,
-      particleCount: _.random(10, 1000),
+      particleCount: _.random(10, 100),
       opacityEnd: randFloat(0, 0.5)
     }
   }
